@@ -27,13 +27,14 @@ class Card(db.Model):
     #   }
     # }
 
-    class CardSchema(ma.Schema):
-         # this is from ma so we refer to schema
-        user = fields.Nested('UserSchema', only = ['name', 'email'])
+class CardSchema(ma.Schema):
+    # this is from ma so we refer to schema
+    user = fields.Nested('UserSchema', only = ['name', 'email'])
 
-        class Meta:
-            fields = ('id', 'title', 'description', 'date', 'status', 'priority', 'user')
+    class Meta:
+        fields = ('id', 'title', 'description', 'date', 'status', 'priority', 'user')
+        order = True
 
-    # we make this so later we can dump which is a part of ma to make into python obj so it can be read by flask and put data in proper way for application
-    card_schema = CardSchema()
-    cards_schema = CardSchema(many=True)
+# we make this so later we can dump which is a part of ma to make into python obj so it can be read by flask and put data in proper way for application
+card_schema = CardSchema()
+cards_schema = CardSchema(many=True)
