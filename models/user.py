@@ -12,7 +12,7 @@ class User(db.Model):
     is_admin = db.Column(db.Boolean, default=False)
 
     # fk
-    cards = db.relationship('Card', back_populates='user', cascade='all delete') # i think this means if user is del then del all their cards?
+    cards = db.relationship('Card', back_populates='user', cascade='all, delete') # i think this means if user is del then del all their cards?
 
    # {id: 1, name: User 1, email: user1@email.com}
     # {
@@ -28,7 +28,7 @@ class User(db.Model):
 
 class UserSchema(ma.Schema):
 
-    cards = fields.List(fields.Nested('CardSchema', exclude['user'])
+    cards = fields.List(fields.Nested('CardSchema', exclude=['user'])
                        )
     class Meta:
         fields = ('id', 'name', 'email', 'password', 'is_admin')
